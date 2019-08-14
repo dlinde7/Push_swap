@@ -6,7 +6,7 @@
 #    By: dlinde <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/23 10:38:37 by dlinde            #+#    #+#              #
-#    Updated: 2019/05/31 11:01:15 by dlinde           ###   ########.fr        #
+#    Updated: 2019/08/14 11:38:15 by dlinde           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,8 @@ FILES = ft_atoi.c \
 	   ft_lstnew.c \
 	   ft_putnbr_fd.c \
 	   ft_strlcat.c \
-	   ft_strtrim.c
+	   ft_strtrim.c \
+	   get_next_line.c
 
 CC	=	gcc
 
