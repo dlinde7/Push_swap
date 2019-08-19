@@ -6,7 +6,7 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 10:48:06 by dlinde            #+#    #+#             */
-/*   Updated: 2019/08/16 12:46:51 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/08/19 15:02:49 by tmentor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,123 +14,10 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-void	s(int *a, int *b, char *str)
-{
-	int tmp;
-
-	if ((ft_strequ(str, "sa") || ft_strequ(str, "ss")) && a[0] && a[1])
-	{
-		tmp = a[0];
-		a[0] = a[1];
-		a[1] = tmp;
-	}
-	if ((ft_strequ(str, "sb") || ft_strequ(str, "ss")) && b[0] && b[2])
-	{
-		tmp = b[0];
-		b[0] = b[1];
-		b[1] = tmp;
-	}
-}
-
-int	p(int *a, int *b, char *str, int x, int n)
-{
-	int i;
-	int z;
-
-	if (ft_strequ(str, "pa") && x != 0)
-	{
-		i = n - x;
-		z = 0;
-		while (i >= 0)
-		{
-			a[i + 1] = a[i];
-			i--;
-		}
-		a[0] = b[0];
-		while (z < x - 1)
-		{
-			b[z] = b[z + 1];
-			z++;
-		}
-		x--;
-	}
-	if (ft_strequ(str, "pb") && n - x != 0)
-	{
-		i = x;
-		z = 0;
-		while (i >= 0)
-		{
-			b[i + 1] = b[i];
-			i--;
-		}
-		b[0] = a[0];
-		while (z < n - x)
-		{
-			a[z] = a[z + 1];
-			z++;
-		}
-		x++;
-	}
-	return (x);
-}
-
-void	rr(int *a, int *b, char *str, int x, int n)
-{
-	int tmp;
-	int	i;
-
-	if ((ft_strequ(str, "rra") || ft_strequ(str, "rrr")) && n - x != 0)
-	{
-		i = n - x - 1;
-		tmp = a[i];
-		while (i > 0)
-		{
-			a[i] = a[i - 1];
-			i--;
-		}
-		a[0] = tmp;
-	}
-	if ((ft_strequ(str, "rrb") || ft_strequ(str, "rrr")) && x != 0)
-	{
-		i = x - 1;
-		tmp = b[i];
-		while (i > 0)
-		{
-			b[i] = b[i - 1];
-			i--;
-		}
-		b[0] = tmp;
-	}
-}
-
-void	r(int *a, int *b, char *str, int x, int n)
-{
-	int tmp;
-	int	i;
-
-	if ((ft_strequ(str, "ra") || ft_strequ(str, "rr")) && n - x != 0)
-	{
-		i = 0;
-		tmp = a[i];
-		while (i < n - x - 1)
-		{
-			a[i] = a[i + 1];
-			i++;
-		}
-		a[i] = tmp;
-	}
-	if ((ft_strequ(str, "rb") || ft_strequ(str, "rr")) && x != 0)
-	{
-		i = 0;
-		tmp = b[i];
-		while (i < x - 1)
-		{
-			b[i] = b[i + 1];
-			i++;
-		}
-		b[i] = tmp;
-	}
-}
+void	s(int *a, int *b, char *str);
+int		p(int *a, int *b, char *str, int *n);
+void	rr(int *a, int *b, char *str, int *n);
+void	r(int *a, int *b, char *str, int *n);
 
 int		checker(int *a, int x, int n)
 {
@@ -151,43 +38,79 @@ int		checker(int *a, int x, int n)
 	return (0);
 }
 
-int		main(int ac, char **av)
+int		error(int ac, char **av)
 {
-	int 		list[ac - 1];
-	int			b[ac - 1];
-	int 		fd;
-	int			n;
-	char		*line;
+	int		n;
+	int		i;
 
 	n = 0;
+	while (++n < ac)
+	{
+		i = 0;
+		while (++i < n)
+			if (ft_strequ(av[n], av[i]))
+				return (0);
+	}
+	return (1);
+}
+
+int		main(int ac, char **av)
+{
+	int		list[ac - 1];
+	int		b[ac - 1];
+	int		n[2];
+	char	*line;
+
+	n[0] = 0;
 	if (ac != 1)
 	{
-		while (n <= ac - 2)
+		if (error(ac, av))
 		{
-			if ((list[n] = ft_atoi(av[n + 1])) || ft_strequ(av[n + 1], "0"))
-				n++;
+			while (n[0] <= ac - 2)
+			{
+				if ((list[n[0]] = ft_atoi(av[n[0] + 1]))
+						|| ft_strequ(av[n[0] + 1], "0"))
+					n[0]++;
+				else
+				{
+					ft_putendl("Error");
+					exit(0);
+				}
+			}
+		}
+		else
+		{
+			ft_putendl("Error");
+			exit(0);
+		}
+		n[0] = 0;
+		n[1] = ac - 1;
+		while (get_next_line(0, &line) == 1)
+		{
+			if (ft_strequ(line, "sa") || ft_strequ(line, "sb")
+				|| ft_strequ(line, "ss") || ft_strequ(line, "pa")
+				|| ft_strequ(line, "pb") || ft_strequ(line, "ra")
+				|| ft_strequ(line, "rb") || ft_strequ(line, "rr")
+				|| ft_strequ(line, "rra") || ft_strequ(line, "rrb")
+				|| ft_strequ(line, "rrr"))
+			{
+				if (line[0] == 's')
+					s(list, b, line);
+				else if (line[0] == 'p')
+					n[0] = p(list, b, line, n);
+				else if (line[0] == 'r' && line[1] == 'r' && line[2] != '\0')
+					rr(list, b, line, n);
+				else
+					r(list, b, line, n);
+				free(line);
+			}
 			else
 			{
 				ft_putendl("Error");
 				exit(0);
 			}
 		}
-		fd = open("com", O_RDONLY);
-		n = 0;
-		while (get_next_line(fd, &line) == 1)
-		{
-			if (line[0] == 's')
-				s(list, b, line);
-			else if (line[0] == 'p')
-				n = p(list, b, line, n, ac - 1);
-			else if (line[0] == 'r' && line[1] == 'r' && line[2] != '\0')
-				rr(list, b, line, n, ac - 1);
-			else
-				r(list, b, line, n, ac - 1);
-			ft_putendl(line);
-			free(line);
-		}
-		if (checker(list, n, ac - 2))
+		if (checker(list, n[0], ac - 2))
 			ft_putendl("OK");
 		else
 			ft_putendl("KO");
