@@ -6,7 +6,7 @@
 /*   By: tmentor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 13:01:55 by tmentor           #+#    #+#             */
-/*   Updated: 2019/08/19 14:33:28 by tmentor          ###   ########.fr       */
+/*   Updated: 2019/08/19 15:11:26 by tmentor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	s(int *a, int *b, char *str)
 	}
 }
 
-int		p2(int *a, int *b, char *str, int *n)
+int		p2(int *a, int *b, int *n)
 {
 	int	i;
 	int	z;
@@ -75,7 +75,7 @@ int		p(int *a, int *b, char *str, int *n)
 		n[0]--;
 	}
 	if (ft_strequ(str, "pb") && n[1] - n[0] != 0)
-		n[0] = p2(a, b, str, n);
+		n[0] = p2(a, b, n);
 	return (n[0]);
 }
 
