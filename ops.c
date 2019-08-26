@@ -6,23 +6,23 @@
 /*   By: tmentor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 13:01:55 by tmentor           #+#    #+#             */
-/*   Updated: 2019/08/19 15:11:26 by tmentor          ###   ########.fr       */
+/*   Updated: 2019/08/26 16:24:38 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
-void	s(int *a, int *b, char *str)
+void	s(int *a, int *b, char *str, int *n)
 {
 	int tmp;
 
-	if ((ft_strequ(str, "sa") || ft_strequ(str, "ss")) && a[0] && a[1])
+	if ((ft_strequ(str, "sa") || ft_strequ(str, "ss")) && n[1] - n[0] > 1)
 	{
 		tmp = a[0];
 		a[0] = a[1];
 		a[1] = tmp;
 	}
-	if ((ft_strequ(str, "sb") || ft_strequ(str, "ss")) && b[0] && b[2])
+	if ((ft_strequ(str, "sb") || ft_strequ(str, "ss")) && n[0] > 1)
 	{
 		tmp = b[0];
 		b[0] = b[1];

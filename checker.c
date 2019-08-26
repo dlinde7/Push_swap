@@ -6,14 +6,14 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 10:48:06 by dlinde            #+#    #+#             */
-/*   Updated: 2019/08/20 14:51:54 by tmentor          ###   ########.fr       */
+/*   Updated: 2019/08/26 16:25:10 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include <fcntl.h>
 
-void	s(int *a, int *b, char *str);
+void	s(int *a, int *b, char *str, int *n);
 int		p(int *a, int *b, char *str, int *n);
 void	rr(int *a, int *b, char *str, int *n);
 void	r(int *a, int *b, char *str, int *n);
@@ -54,7 +54,7 @@ void	sort(char *line, int *list, int *b, int *n)
 			|| ft_strequ(line, "rrr"))
 	{
 		if (line[0] == 's')
-			s(list, b, line);
+			s(list, b, line, n);
 		else if (line[0] == 'p')
 			n[0] = p(list, b, line, n);
 		else if (line[0] == 'r' && line[1] == 'r' && line[2] != '\0')
