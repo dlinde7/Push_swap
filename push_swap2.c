@@ -6,7 +6,7 @@
 /*   By: tmentor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 14:40:24 by tmentor           #+#    #+#             */
-/*   Updated: 2019/09/03 17:46:51 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/03 18:21:27 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,148 +205,153 @@ void	bsort(int *a, int *b, int *n)
 	}
 }
 
-void	sorta(int *a, int *b, int *n)
+void	sortb(int *a, int *b, int *n)
 {
-	int c[2];
-	int d;
-	int z[2];
-	int	x;
-	int i;
+	p(a, b, "pb", n);
+	ft_putendl("pb");
+}
 
-	i = 0;
-	c[0] = a[0];
-	c[1] = 0;
-	x = 0;
-	z[0] = 0;
-	while (i < n[1] - n[0])
-	{
-		if (a[i] < c[0])
-		{
-			c[0] = a[i];
-			x = i;
-		}
-		if (a[i] > c[1])
-			c[1] = a[i];
-		i++;
-	}
-	while (!checka(a, n[1] - n[0]))
+void	passb(int *a, int *b, int *n)
+{
+	int max;
+	int i;
+	int x;
+
+	while (n[0] > 0)
 	{
 		i = 0;
-		d = c[1];
-		while (i < n[1] - n[0])
+		max = 0;
+		x = 0;
+		while (i < n[0])
 		{
-			if (a[i] > c[0] && a[i] < d)
+			if (b[i] > max)
 			{
-				d = a[i];
-				z[0] = i;
+				max = b[i];
+				x = i;
 			}
-			if (a[i] == c[1])
-				z[1] = i;
 			i++;
 		}
-		if (d == c[1])
-			z[0] = z[1];
-		if (z[0] < x)
-			x = (i - x) + z[0];
-		else
-			x = z[0] - x;
-		if (x != 1)
+		if (x < i / 2)
 		{
-			if (z[0] < (n[1] - n[0]) / 2)
+			while (x > 0)
 			{
-				while (z[0] != 1)
-				{
-					r(a, b, "ra", n);
-					ft_putendl("ra");
-					z[0]--;
-				}
-			}
-			else
-			{
-				while (z[0] != i + 1)
-				{
-					rr(a, b, "rra", n);
-					ft_putendl("rra");
-					z[0]++;
-				}
-			}
-			while (x != 1)
-			{
-				s(a, b, "sa", n);
-				ft_putendl("sa");
-				rr(a, b, "rra", n);
-				ft_putendl("rra");
+				r(a, b, "rb", n);
+				ft_putendl("rb");
 				x--;
 			}
 		}
 		else
-			x = z[0];
-		if (d == c[1])
 		{
-			rr(a, b, "rra", n);
-			ft_putendl("rra");
+			while (x < i)
+			{
+				rr(a, b, "rrb", n);
+				ft_putendl("rrb");
+				x++;
+			}
 		}
-		c[0] = d;
-	}
-	i = 0;
-	while (i < n[1] - n[0])
-	{
-		ft_putnbr(a[i]);
-		ft_putchar(' ');
-		i++;
+		p(a, b, "pa", n);
+		ft_putendl("pa");
 	}
 }
 
 void	sort(int *a, int *b, int *n)
 {
-	int	m;
-	int	i;
+	int	min[2];
+	int	max;
+	int	x[2];
+	int	i[2];
+	int	z;
 
-	if (!checka(a, n[1]))
+	min[0] = a[0];
+	max = 0;
+	i[1] = 0;
+	while (i[1] < n[1])
 	{
-		m = med(a, n[1]);
-		//ft_putnbr(m);
-		//ft_putchar('\n');
-		i = 0;
-		while (i < n[1] - n[0])
+		if (a[i[1]] < min[0])
+			min[0] = a[i[1]];
+		if (a[i[1]] > max)
+			max = a[i[1]];
+		i[1]++;
+	}
+	x[0] = max - min[0];
+	if (i[1] <= 100)
+		x[1] = 4;
+	else if (i[1] <= 200)
+		x[1] = 6;
+	else if (i[1] <= 300)
+		x[1] = 7;
+	else if (i[1] <= 400)
+		x[1] = 8;
+	else
+		x[1] = 10;
+	x[0] = x[0] / x[1];
+	min[1] = min[0];
+	while (min[1] <= min[0] + (x[0] * x[1]))
+	{
+		i[0] = 0;
+		i[1] = (n[1] - n[0]) - 1;
+		z = 0;
+		min[1] = min[1] + x[0];
+		if (min[1] >= max)
+			min[1] = max - 1;
+		while (z != 1)
 		{
-			if (a[0] < m)
+			i[0] = 0;
+			while (a[i[0]] > min[1] && i[0] < (n[1] - n[0]))
+				i[0]++;
+			if (i[0] == (n[1] - n[0]) || n[0] == n[1])
+				z = 1;
+			else
 			{
-				p(a, b, "pb", n);
-				ft_putendl("pb");
-				i = 0;
-			}
-			if (a[i] < m)
-			{
-				if (i < (n[1] - n[0]) / 2)
+				if (i[0] < (n[1] - n[0]) / 2 )
 				{
-					while (i != 0)
+					while (i[0] > 0)
 					{
 						r(a, b, "ra", n);
 						ft_putendl("ra");
-						i--;
+						i[0]--;
 					}
 				}
 				else
 				{
-					while (i != (n[1] - n[0]))
+					while (i[0] < (n[1] - n[0]))
 					{
 						rr(a, b, "rra", n);
 						ft_putendl("rra");
-						i++;
+						i[0]++;
 					}
-					i = 0;
 				}
+				sortb(a, b, n);
 			}
-			i++;
 		}
-		sorta(a, b, n);
-		/*while (n[0] != 0)
-		{
-			p(a, b, "pa", n);
-			ft_putendl("pa");
-		}*/
+		if (n[0] == n[1] - 1)
+			min[1] = max + x[0];
 	}
+	/*i[0] = 0;
+	while (i[0] < n[1] - n[0])
+	{
+		ft_putnbr(a[i[0]]);
+		ft_putchar(' ');
+		i[0]++;
+	}
+	ft_putchar('\n');
+	i[0] = 0;
+	while (i[0] < n[0])
+	{
+		ft_putnbr(b[i[0]]);
+		ft_putchar(' ');
+		i[0]++;
+	}
+	ft_putchar('\n');*/
+	passb(a, b, n);
+	/*i[0] = 0;
+	while (i[0] < n[1] - n[0])
+	{
+		ft_putnbr(a[i[0]]);
+		ft_putchar(' ');
+		i[0]++;
+	}
+	ft_putchar('\n');*/
 }
 
 void	push_swap(int *a, int *b, int *n)
