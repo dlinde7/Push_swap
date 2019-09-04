@@ -6,21 +6,14 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 10:48:06 by dlinde            #+#    #+#             */
-/*   Updated: 2019/08/26 16:25:10 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/04 15:34:02 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "subfun/push.h"
 #include <fcntl.h>
 
-void	s(int *a, int *b, char *str, int *n);
-int		p(int *a, int *b, char *str, int *n);
-void	rr(int *a, int *b, char *str, int *n);
-void	r(int *a, int *b, char *str, int *n);
-void	place(int *n, int ac, int *list, char **av);
-int		error(int ac, char **av);
-
-void	checker(int *a, int x, int n)
+static void	checker(int *a, int x, int n)
 {
 	int	i;
 
@@ -44,7 +37,7 @@ void	checker(int *a, int x, int n)
 		ft_putendl("KO");
 }
 
-void	sort(char *line, int *list, int *b, int *n)
+static void	sort(char *line, int *list, int *b, int *n)
 {
 	if (ft_strequ(line, "sa") || ft_strequ(line, "sb")
 			|| ft_strequ(line, "ss") || ft_strequ(line, "pa")
@@ -70,25 +63,56 @@ void	sort(char *line, int *list, int *b, int *n)
 	}
 }
 
-int		main(int ac, char **av)
+static void	erpl(int ac, char **av, int *list, int *n)
+{
+	if (error(ac, av))
+		place(n, ac, list, av);
+	else
+	{
+		ft_putendl("Error");
+		exit(0);
+	}
+	n[0] = 0;
+	n[1] = ac - 1;
+}
+
+static void	erplb(int i, char **tmp, int *list, int *n)
+{
+	if (error(i, tmp))
+	{
+		placeb(n, i, list, tmp);
+	}
+	else
+	{
+		ft_putendl("Error");
+		exit(0);
+	}
+	n[0] = 0;
+	n[1] = n[2];
+}
+
+int			main(int ac, char **av)
 {
 	int		list[ac - 1];
 	int		b[ac - 1];
-	int		n[2];
+	int		n[3];
 	char	*line;
+	char	**tmp;
 
 	n[0] = 0;
-	if (ac != 1)
+	n[2] = 0;
+	if (ac > 1 && ac < 3)
 	{
-		if (error(ac, av))
-			place(n, ac, list, av);
-		else
-		{
-			ft_putendl("Error");
-			exit(0);
-		}
-		n[0] = 0;
-		n[1] = ac - 1;
+		n[2] = ft_wordcount(av[1], ' ');
+		tmp = ft_strsplit(av[1], ' ');
+		erplb(n[2], tmp, list, n);
+		while (get_next_line(0, &line) == 1)
+			sort(line, list, b, n);
+		checker(list, n[0], n[2]);
+	}
+	if (ac > 2)
+	{
+		erpl(ac, av, list, n);
 		while (get_next_line(0, &line) == 1)
 			sort(line, list, b, n);
 		checker(list, n[0], ac - 2);
