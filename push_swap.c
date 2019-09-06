@@ -6,7 +6,7 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:22:56 by dlinde            #+#    #+#             */
-/*   Updated: 2019/09/06 12:37:57 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/06 17:21:58 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,16 @@ int			main(int ac, char **av)
 		while (i < ac)
 		{
 			n[0] = ft_wordcount(av[i], ' ');
+			if (n[0] == 0 && !ft_strequ(av[i], ""))
+			{
+				ft_putendl("Error");
+				exit(0);
+			}
 			n[1] += n[0];
 			i++;
 		}
+		if (n[1] == 0)
+			exit(0);
 		n[0] = 0;
 		list(ac, av, n);
 	}
