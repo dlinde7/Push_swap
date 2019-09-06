@@ -6,7 +6,7 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:24:12 by dlinde            #+#    #+#             */
-/*   Updated: 2019/09/06 12:45:56 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/06 13:00:10 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ void	error(int ac, int *a)
 	n = 0;
 	if (ac > 1)
 	{
-		while (++n < ac)
+		while (++n <= ac)
 		{
 			i = 0;
-			while (++i < n)
+			while (i < n)
 			{
-				if (a[n] == a[i] && n != i)
+				if (a[i] == a[n])
 				{
 					ft_putendl("Error");
 					exit(0);
 				}
+				i++;
 			}
 		}
 	}
