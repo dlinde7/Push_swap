@@ -6,7 +6,7 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 11:46:16 by dlinde            #+#    #+#             */
-/*   Updated: 2019/09/04 13:27:18 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/06 12:26:38 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,24 @@ void		finalsort(int *a, int *b, int *n)
 	int	x[2];
 	int	i[3];
 
-	min[0] = a[0];
-	max[0] = 0;
-	i[1] = 0;
-	i[0] = n[1];
-	minmax(i, a, min, max);
-	findx(min, max, x, i);
-	while (min[1] <= min[0] + (x[0] * x[1]))
+	if (!checka(a, n[1]))
 	{
-		i[0] = 0;
-		i[1] = (n[1] - n[0]) - 1;
-		min[1] = min[1] + x[0];
-		if (min[1] >= max[0])
-			min[1] = max[2] - 1;
-		i[2] = min[1];
-		withz(i, a, b, n);
-		if (n[0] == n[1] - 3)
-			min[1] = max[0] + x[0];
+		min[0] = a[0];
+		max[0] = -2147483648;
+		i[1] = 0;
+		i[0] = n[1];
+		minmax(i, a, min, max);
+		findx(min, max, x, i);
+		while (min[1] <= min[0] + (x[0] * x[1]))
+		{
+			i[0] = 0;
+			i[1] = (n[1] - n[0]) - 1;
+			min[1] = min[1] + x[0];
+			ex(min, max, i);
+			withz(i, a, b, n);
+			if (n[0] == n[1] - 3)
+				min[1] = max[0] + x[0];
+		}
+		passb(a, b, n);
 	}
-	passb(a, b, n);
 }

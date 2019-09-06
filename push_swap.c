@@ -6,7 +6,7 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:22:56 by dlinde            #+#    #+#             */
-/*   Updated: 2019/09/04 15:27:12 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/06 12:37:57 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,54 +22,51 @@ static void	push_swap(int *a, int *b, int *n)
 		asort(a, b, n);
 }
 
-static void	erpl(int ac, char **av, int *list, int *n)
+static void	list(int ac, char **av, int *n)
 {
-	if (error(ac, av))
-		place(n, ac, list, av);
-	else
-	{
-		ft_putendl("Error");
-		exit(0);
-	}
-}
+	int		x[3];
+	int		i[3];
+	int		a[n[1]];
+	int		b[n[1]];
 
-static void	erplb(int i, char **tmp, int *list, int *n)
-{
-	if (error(i, tmp))
+	i[1] = 0;
+	i[0] = 1;
+	x[1] = 0;
+	while (i[0] < ac)
 	{
-		placeb(n, i, list, tmp);
+		x[0] = ft_wordcount(av[i[0]], ' ');
+		x[1] += x[0];
+		if (x[0] > 1)
+		{
+			x[2] = x[1] - x[0];
+			totmp(av[i[0]], a, x);
+		}
+		else if (x[0] != 0)
+		{
+			x[2] = i[0];
+			erpl(a, x, av);
+		}
+		i[0]++;
 	}
-	else
-	{
-		ft_putendl("Error");
-		exit(0);
-	}
+	push_swap(a, b, n);
 }
 
 int			main(int ac, char **av)
 {
-	int		list[ac - 1];
-	int		b[ac - 1];
-	int		n[2];
-	int		i;
-	char	**tmp;
+	int	i;
+	int n[2];
 
-	i = 0;
-	n[0] = 0;
-	if (ac > 1 && ac < 3)
+	if (ac > 1)
 	{
-		i = ft_wordcount(av[1], ' ');
-		tmp = ft_strsplit(av[1], ' ');
-		erplb(i, tmp, list, n);
+		n[1] = 0;
+		i = 1;
+		while (i < ac)
+		{
+			n[0] = ft_wordcount(av[i], ' ');
+			n[1] += n[0];
+			i++;
+		}
 		n[0] = 0;
-		n[1] = i;
-		push_swap(list, b, n);
-	}
-	else if (ac > 2)
-	{
-		erpl(ac, av, list, n);
-		n[0] = 0;
-		n[1] = ac - 1;
-		push_swap(list, b, n);
+		list(ac, av, n);
 	}
 }

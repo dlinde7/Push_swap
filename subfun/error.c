@@ -6,54 +6,78 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:24:12 by dlinde            #+#    #+#             */
-/*   Updated: 2019/09/04 16:24:19 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/06 12:25:46 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-int		error(int ac, char **av)
+void	error(int ac, int *a)
 {
 	int		n;
 	int		i;
 
 	n = 0;
-	while (++n < ac)
+	if (ac > 1)
 	{
-		i = 0;
-		while (++i < n)
-			if (ft_strequ(av[n], av[i]))
-				return (0);
+		while (++n < ac)
+		{
+			i = 0;
+			while (++i < n)
+			{
+				if (a[n] == a[i] && n != i)
+				{
+					ft_putendl("Error");
+					exit(0);
+				}
+			}
+		}
 	}
-	return (1);
 }
 
-void	place(int *n, int ac, int *list, char **av)
+void	place(int *x, int *a, char **av)
 {
-	while (n[0] <= ac - 2)
+	if ((a[x[1] - 1] = ft_atoi(av[x[2]]))
+			|| ft_strequ(av[x[2]], "0"))
 	{
-		if ((list[n[0]] = ft_atoi(av[n[0] + 1]))
-				|| ft_strequ(av[n[0] + 1], "0"))
-			n[0]++;
+	}
+	else
+	{
+		ft_putendl("Error");
+		exit(0);
+	}
+}
+
+void	placeb(int *n, int *a, char **av)
+{
+	int	i;
+
+	i = 0;
+	while (i < n[0])
+	{
+		if ((a[n[2]] = ft_atoi(av[i]))
+				|| ft_strequ(av[i], "0"))
+		{
+			n[2]++;
+			i++;
+		}
 		else
 		{
+			ft_putendl("yes");
 			ft_putendl("Error");
 			exit(0);
 		}
 	}
 }
 
-void	placeb(int *n, int ac, int *list, char **av)
+void	erplb(int *a, int *x, char **tmp)
 {
-	while (n[0] <= ac - 1)
-	{
-		if ((list[n[0]] = ft_atoi(av[n[0]]))
-				|| ft_strequ(av[n[0]], "0"))
-			n[0]++;
-		else
-		{
-			ft_putendl("Error");
-			exit(0);
-		}
-	}
+	placeb(x, a, tmp);
+	error(x[1], a);
+}
+
+void	erpl(int *a, int *x, char **tmp)
+{
+	place(x, a, tmp);
+	error(x[1], a);
 }
