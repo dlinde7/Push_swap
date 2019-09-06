@@ -6,7 +6,7 @@
 /*   By: dlinde <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:24:12 by dlinde            #+#    #+#             */
-/*   Updated: 2019/09/06 12:25:46 by dlinde           ###   ########.fr       */
+/*   Updated: 2019/09/06 12:45:56 by dlinde           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	placeb(int *n, int *a, char **av)
 		}
 		else
 		{
-			ft_putendl("yes");
 			ft_putendl("Error");
 			exit(0);
 		}
