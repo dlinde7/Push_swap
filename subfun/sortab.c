@@ -70,7 +70,7 @@ void		revsort(int *a, int *b, int *n)
 			s(a, b, "sb", n);
 			ft_putendl("sb");
 		}
-		else if (b[0] < b[1] && b[1] > b[2] && b[0] < b[2] & n[0] == 3)
+		else if (b[0] < b[1] && b[1] > b[2] && b[0] < b[2] && n[0] == 3)
 		{
 			r(a, b, "rb", n);
 			ft_putendl("rb");
